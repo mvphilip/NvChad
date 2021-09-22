@@ -39,27 +39,54 @@ M.ui.plugin = {
 -- non plugin normal, available without any plugins
 M.options = {
    clipboard = "unnamedplus",
-   cmdheight = 1,
+   cmdheight = 2,
    expandtab = true,
    hidden = true,
-   ignorecase = true,
+   incsearch = true,
+   showmatch = true, 
+   smartcase = true,
+   ignorecase = false,
+   hlsearch = true, 
+   matchtime=2,
    insert_nav = true, -- navigation in insertmode
-   mapleader = " ",
-   mouse = "a",
+   mapleader = ",",
+   mouse = "a", -- Mouse active in all modes
+   mousemodel="popup_setpos", 
    number = true,
+   lazyredraw = true,
    -- relative numbers in normal mode tool at the bottom of options.lua
    numberwidth = 2,
    permanent_undo = true,
    shiftwidth = 2,
    smartindent = true,
-   tabstop = 8, -- Number of spaces that a <Tab> in the file counts for
+   termguicolors = true,
+   tabstop = 4, -- Number of spaces that a <Tab> in the file counts for
    timeoutlen = 400,
-   relativenumber = false,
+   relativenumber = true,
    ruler = false,
+   display = 'lastline',
    updatetime = 250,
    -- used for updater
    update_url = "https://github.com/NvChad/NvChad",
    update_branch = "main",
+   -- undo . Need auto group for this to work.
+   undofile = true,
+   -- set undofile
+   -- set undodir=$undoDir
+   -- let &backupdir=$backupDir
+   -- set backup
+   -- set backupcopy=yes
+   -- "Meaningful backup name, ex: filename@2015-04-05.14:59
+   -- au BufWritePre * let &bex = '@' . strftime("%F.%H:%M")
+   --
+   -- Buffer manipulation
+   autochdir=true,
+
+   -- General setup
+   visualbell=true,
+
+   wildmode="longest:full,list:full",
+
 }
 
 -- these are plugin related options
@@ -98,17 +125,18 @@ M.mappings = {
    close_buffer = "<leader>x",
    copy_whole_file = "<C-a>", -- copy all contents of the current buffer
 
+   command_mode = "<leader>;",
    -- navigation in insert mode, only if enabled in options
    insert_nav = {
       backward = "<C-h>",
       end_of_line = "<C-e>",
       forward = "<C-l>",
-      next_line = "<C-k>",
-      prev_line = "<C-j>",
+      next_line = "<C-j>",
+      prev_line = "<C-k>",
       top_of_line = "<C-a>",
    },
 
-   line_number_toggle = "<leader>n", -- show or hide line number
+   --line_number_toggle = "<leader>n", -- show or hide line number
    new_buffer = "<S-t>", -- open a new buffer
    new_tab = "<C-t>b", -- open a new vim tab
    save_file = "<C-s>", -- save file using :w
@@ -118,16 +146,19 @@ M.mappings = {
    terminal = {
       -- multiple mappings can be given for esc_termmode and esc_hide_termmode
       -- get out of terminal mode
-      esc_termmode = { "jk" }, -- multiple mappings allowed
+      esc_termmode = { "hn" }, -- multiple mappings allowed
       -- get out of terminal mode and hide it
       -- it does not close it, see pick_term mapping to see hidden terminals
-      esc_hide_termmode = { "JK" }, -- multiple mappings allowed
+      esc_hide_termmode = { "HN" }, -- multiple mappings allowed
       -- show hidden terminal buffers in a telescope picker
-      pick_term = "<leader>W",
+      pick_term = "<leader>ww",
       -- below three are for spawning terminals
-      new_horizontal = "<leader>h",
-      new_vertical = "<leader>v",
-      new_window = "<leader>w",
+      new_horizontal = "<leader>we",
+      new_vertical = "<leader>wv",
+      new_window = "<leader>wn",
+      --new_horizontal = "<leader>h",
+      --new_vertical = "<leader>v",
+      --new_window = "<leader>w",
    },
 
    -- update nvchad from nvchad, chadness 101
@@ -152,12 +183,12 @@ M.mappings.plugin = {
       bookmarks = "<leader>bm",
       new_file = "<leader>fn", -- basically create a new buffer
       open = "<leader>db", -- open dashboard
-      session_load = "<leader>l", -- load a saved session
-      session_save = "<leader>s", -- save a session
+      session_load = "<leader>L", -- load a saved session
+      session_save = "<leader>S", -- save a session
    },
    -- note: this is an edditional mapping to escape, escape key will still work
    better_escape = {
-      esc_insertmode = { "jk" }, -- multiple mappings allowed
+      esc_insertmode = { "hn" }, -- multiple mappings allowed
    },
    nvimtree = {
       toggle = "<C-n>", -- file manager
@@ -188,6 +219,22 @@ M.mappings.plugin = {
       diff_get_3 = "<leader>gl",
       git = "<leader>gs",
       git_blame = "<leader>gb",
+   },
+}
+
+-- plugin related ui options
+M.ui.plugin = {
+   -- statusline related options
+   statusline = {
+      -- these are filetypes, not pattern matched
+      -- if a filetype is present in shown, it will always show the statusline, irrespective of filetypes in hidden
+      hidden = {
+         "NvimTree",
+         "dashboard",
+      },
+      shown = {},
+      -- default, round , slant , block , arrow
+      style = "default",
    },
 }
 

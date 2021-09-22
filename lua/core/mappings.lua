@@ -4,6 +4,12 @@ local plugin_maps = maps.plugin
 local cmd = vim.cmd
 
 local function map(mode, lhs, rhs, opts)
+  if lhs==nil  or lhs == '' then 
+    return
+  end
+  if rhs==nil  or rhs == '' then 
+    return
+  end
    local options = { noremap = true, silent = true }
    if opts then
       options = vim.tbl_extend("force", options, opts)
@@ -32,12 +38,43 @@ M.misc = function()
 
       -- Don't copy the replaced text after pasting in visual mode
       map("v", "p", '"_dP', opt)
+      -- Escape in terminal mode
+      map("t", "<Esc>", "<Esc><C-\\><C-N>", opt)
 
+
+      -- Colemak navigation
+      map("", "j", "k", { expr = true})
+      map("", "k", "j", { expr = true})
+
+      -- in buffer shortcuts
+      map("n", "<leader>w=", "<C-W>=", opt)
+      map("i", "<leader>w=", "<C-W>=", opt)
+      map("t", "<leader>w=", "<Esc><C-\\><C-N><C-W>=", opt)
+      -- delete current buffer
+      map("n", "<leader>bd", ":bdelete<CR>", opt)
+      map("n", "<leader>wc", "<C-W>c", opt)
+      map("t", "<leader>wc", "<Esc><C-\\><C-N><C-W>c", opt)
+      map("i", "<leader>wc", "<C-W>c", opt)
+
+      -- insert at line start
+      map("n", "<leader>si", "<S-i>", opt)
+      -- replace all after
+      map("n", "<leader>sc", "<S-c>", opt)
+      -- insert line above
+      map("n", "<leader>so", "<S-o>", opt)
+      -- combine next line
+      map("n", "<leader>sj", "<S-j>", opt)
+
+      -- visual mode shortcuts
+      map("n", "<leader>sv", "<S-v>", opt)
+      map("n", "<leader>cv", "<C-v>", opt)
+      map("t", "<leader>sv", "<C-\\><C-N><S-v>", opt)
+      map("t", "<leader>cv", "<C-\\><C-N><C-v>", opt)
       -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
       -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
       -- empty mode is same as using :map
-      map("", "j", 'v:count ? "j" : "gj"', { expr = true })
-      map("", "k", 'v:count ? "k" : "gk"', { expr = true })
+      map("", "j", 'v:count ? "k" : "gk"', { expr = true })
+      map("", "k", 'v:count ? "j" : "gj"', { expr = true })
       map("", "<Down>", 'v:count ? "j" : "gj"', { expr = true })
       map("", "<Up>", 'v:count ? "k" : "gk"', { expr = true })
 
@@ -75,6 +112,7 @@ M.misc = function()
       map("n", maps.new_buffer, ":enew <CR>", opt) -- new buffer
       map("n", maps.new_tab, ":tabnew <CR>", opt) -- new tabs
       map("n", maps.line_number_toggle, ":set nu! <CR>", opt) -- toggle numbers
+      map("n", maps.command_mode, "<Esc>:", opt) -- command mode
       map("n", maps.save_file, ":w <CR>", opt) -- ctrl + s to save file
 
       -- terminal mappings --
@@ -95,6 +133,19 @@ M.misc = function()
       )
       map("n", term_maps.new_vertical, ":execute 'vnew +terminal' | let b:term_type = 'vert' | startinsert <CR>", opt)
       map("n", term_maps.new_window, ":execute 'terminal' | let b:term_type = 'wind' | startinsert <CR>", opt)
+
+      map(
+         "t",
+         "<leader>wv",
+         "<C-\\><C-N>:execute 15 .. 'new +terminal' | let b:term_type = 'vert' | startinsert <CR>",
+         opt
+      )
+      map(
+         "t",
+         "<leader>we",
+         "<C-\\><C-N>:execute 15 .. 'new +terminal' | let b:term_type = 'hori' | startinsert <CR>",
+         opt
+      )
       -- terminal mappings end --
 
       -- Add Packer commands because we are not loading it at startup

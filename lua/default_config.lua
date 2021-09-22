@@ -112,7 +112,7 @@ M.mappings = {
       top_of_line = "<C-a>",
    },
 
-   line_number_toggle = "<leader>n", -- show or hide line number
+   -- line_number_toggle = "<leader>n", -- show or hide line number
    new_buffer = "<S-t>", -- open a new buffer
    new_tab = "<C-t>b", -- open a new vim tab
    save_file = "<C-s>", -- save file using :w
@@ -129,9 +129,9 @@ M.mappings = {
       -- show hidden terminal buffers in a telescope picker
       pick_term = "<leader>W",
       -- below three are for spawning terminals
-      new_horizontal = "<leader>h",
-      new_vertical = "<leader>v",
-      new_window = "<leader>w",
+      new_horizontal = "<leader>we",
+      new_vertical = "<leader>wv",
+      new_window = "<leader>wn",
    },
 
    -- update nvchad from nvchad, chadness 101
@@ -156,8 +156,8 @@ M.mappings.plugin = {
       bookmarks = "<leader>bm",
       new_file = "<leader>fn", -- basically create a new buffer
       open = "<leader>db", -- open dashboard
-      session_load = "<leader>l", -- load a saved session
-      session_save = "<leader>s",
+      session_load = "<leader>L", -- load a saved session
+      session_save = "<leader>S",
    },
    -- note: this is an edditional mapping to escape, escape key will still work
    better_escape = {

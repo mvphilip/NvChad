@@ -22,6 +22,15 @@ return packer.startup(function()
    }
 
    use {
+      "mvphilip/nvim-bufmode",
+   }
+
+   use {
+     "Iron-E/nvim-highlite",
+     after = "packer.nvim",
+   }
+
+   use {
       "NvChad/nvim-base16.lua",
       after = "packer.nvim",
       config = function()
@@ -38,12 +47,12 @@ return packer.startup(function()
    }
 
    use {
-      "glepnir/galaxyline.nvim",
-      disable = not plugin_status.galaxyline,
+      "NTBBloodbath/galaxyline.nvim",
       after = "nvim-web-devicons",
       config = function()
-         require "plugins.configs.statusline"
+         require("galaxyline.themes.spaceline")
       end,
+     requires = { "kyazdani42/nvim-web-devicons", opt = true },
    }
 
    use {
@@ -61,6 +70,20 @@ return packer.startup(function()
    use {
       "nvim-lua/plenary.nvim",
    }
+
+   use {
+     -- better scrolling
+     "dstein64/nvim-scrollview"
+   }
+
+   use {
+     -- submode
+      'Iron-E/nvim-libmodal', branch = 'feature/001--lua-runtime',
+      after = "galaxyline.nvim",
+      config = function()
+         require "plugins.configs.libmodal"
+      end,
+  }
 
    -- git stuff
    use {
@@ -107,6 +130,9 @@ return packer.startup(function()
    -- lsp stuff
    use {
       "nvim-treesitter/nvim-treesitter",
+      updater = { "TSUpdate"}, 
+   -- Force tree sitter to update. There is 
+   -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1201
       event = "BufRead",
       config = function()
          require "plugins.configs.treesitter"

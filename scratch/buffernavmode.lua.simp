@@ -1,0 +1,24 @@
+local cmd  = vim.api.nvim_command
+local eval = vim.api.nvim_eval
+local fn   = vim.api.nvim_call_function
+
+local function _cmd_wrap(command)
+	return function() cmd(command) end
+end
+
+local function _eval_wrap(command)
+	return function() eval(command) end
+end
+
+
+-- libmodal buffer navigation
+local _BUFFER_NAV_MODE_COMBOS = {
+  ['j'] = 'wincmd k',
+  ['k'] = 'wincmd j',
+  ['h'] = 'wincmd h',
+  ['l'] = 'wincmd l',
+}
+
+return function()
+	require('libmodal').mode.enter('BUFFER_MOVES', _BUFFER_NAV_MODE_COMBOS)
+end

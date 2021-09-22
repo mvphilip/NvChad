@@ -47,6 +47,19 @@ opt.updatetime = options.updatetime
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>hl"
 
+
+-- MP Custom
+opt.incsearch = options.incsearch
+opt.showmatch  = options.showmatch 
+opt.smartcase  = options.smartcase 
+opt.matchtime = options.matchtime
+opt.mousemodel = options.mousemodel
+opt.lazyredraw  = options.lazyredraw 
+opt.display  = options.display 
+opt.autochdir = options.autochdir
+opt.visualbell = options.visualbell
+opt.wildmode = options.wildmode
+
 g.mapleader = options.mapleader
 
 -- disable some builtin vim plugins
